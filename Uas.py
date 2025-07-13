@@ -1,49 +1,67 @@
 import streamlit as st
 import numpy as np
 
-# Title & Description
+st.set_page_config(page_title="EOQ Calculator", page_icon="📦")
+
 st.title("📦 Aplikasi Perhitungan EOQ (Economic Order Quantity)")
-st.markdown("""
-Simulasi sistem persediaan barang untuk menentukan jumlah pemesanan optimal berdasarkan model EOQ (Economic Order Quantity).
-""")
+st.markdown("Simulasi sistem persediaan barang untuk menentukan jumlah pemesanan optimal (EOQ).")
 
-# Input Section
-st.header("🔢 Masukkan Data Persediaan")
-D = st.number_input("Permintaan Tahunan (unit)", min_value=1, value=5000)
-S = st.number_input("Biaya Pemesanan per Pesanan (Rp)", min_value=1.0, value=75000.0)
-H = st.number_input("Biaya Penyimpanan per Unit per Tahun (Rp)", min_value=1.0, value=1500.0)
+tab1, tab2 = st.tabs(["🔢 Input Manual", "📘 Studi Kasus SmartTech"])
 
-# EOQ Calculation
-EOQ = np.sqrt((2 * D * S) / H)
-num_orders = D / EOQ
-total_cost = (D / EOQ) * S + (EOQ / 2) * H
+# Tab 1 – Input Manual
+with tab1:
+    st.header("Masukkan Data Persediaan Anda")
 
-# Output Section
-st.header("📈 Hasil Perhitungan")
-col1, col2, col3 = st.columns(3)
-col1.metric("🔹 EOQ (unit)", f"{EOQ:.2f}")
-col2.metric("🔹 Jumlah Pesanan per Tahun", f"{num_orders:.2f} kali")
-col3.metric("🔹 Total Biaya Persediaan", f"Rp {total_cost:,.2f}")
+    D = st.number_input("Permintaan Tahunan (unit)", min_value=1, value=5000)
+    S = st.number_input("Biaya Pemesanan per Pesanan (Rp)", min_value=1.0, value=75000.0)
+    H = st.number_input("Biaya Penyimpanan per Unit per Tahun (Rp)", min_value=1.0, value=1500.0)
 
-# Explanation
-with st.expander("📘 Penjelasan Rumus EOQ"):
-    st.markdown(r"""
-**Rumus EOQ:**
-\[
-EOQ = \sqrt{\frac{2DS}{H}}
-\]
+    EOQ = np.sqrt((2 * D * S) / H)
+    num_orders = D / EOQ
+    total_cost = (D / EOQ) * S + (EOQ / 2) * H
 
-Dimana:  
-- \(D\) = Permintaan tahunan  
-- \(S\) = Biaya pemesanan per pesanan  
-- \(H\) = Biaya penyimpanan per unit per tahun
+    st.subheader("📈 Hasil Perhitungan")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("EOQ (unit)", f"{EOQ:.2f}")
+    col2.metric("Jumlah Pesanan per Tahun", f"{num_orders:.2f}")
+    col3.metric("Total Biaya Persediaan", f"Rp {total_cost:,.2f}")
 
-**Total Biaya Persediaan:**
-\[
-TC = \left( \frac{D}{EOQ} \times S \right) + \left( \frac{EOQ}{2} \times H \right)
-\]
-""")
+# Tab 2 – Studi Kasus
+with tab2:
+    st.header("📘 Studi Kasus: Toko Elektronik SmartTech")
+    st.write("""
+    Toko SmartTech menjual lampu pintar. Berikut data tahunannya:
+    - Permintaan tahunan (D): 2.400 unit
+    - Biaya pemesanan per pesanan (S): Rp 100.000
+    - Biaya penyimpanan per unit per tahun (H): Rp 2.000
+    """)
+
+    # Data Studi Kasus
+    D2 = 2400
+    S2 = 100000
+    H2 = 2000
+
+    EOQ2 = np.sqrt((2 * D2 * S2) / H2)
+    num_orders2 = D2 / EOQ2
+    total_cost2 = (D2 / EOQ2) * S2 + (EOQ2 / 2) * H2
+
+    st.subheader("📊 Hasil Perhitungan Studi Kasus")
+    st.write(f"**EOQ:** {EOQ2:.2f} unit")
+    st.write(f"**Jumlah Pemesanan per Tahun:** {num_orders2:.2f} kali")
+    st.write(f"**Total Biaya Persediaan:** Rp {total_cost2:,.2f}")
+
+# Penjelasan Rumus
+with st.expander("ℹ️ Penjelasan Rumus EOQ"):
+    st.latex(r'''EOQ = \sqrt{\frac{2DS}{H}}''')
+    st.markdown("""
+    - **D** = Permintaan tahunan (unit)
+    - **S** = Biaya pemesanan per pesanan
+    - **H** = Biaya penyimpanan per unit per tahun
+    
+    **Total Biaya Persediaan:**
+    """)
+    st.latex(r'''TC = \left( \frac{D}{EOQ} \times S \right) + \left( \frac{EOQ}{2} \times H \right)''')
 
 # Footer
 st.markdown("---")
-st.caption("Dibuat oleh: Aplikasi EOQ dengan Streamlit – © 2025")
+st.caption("Aplikasi EOQ | Dibuat dengan ❤️ oleh ChatGPT x Streamlit")
