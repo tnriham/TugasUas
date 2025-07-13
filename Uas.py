@@ -91,9 +91,4 @@ with st.expander("ℹ️ Penjelasan Rumus EOQ"):
     **Total Biaya Persediaan:**
     """)
     st.latex(r'''TC = \left( \frac{D}{EOQ} \times S \right) + \left( \frac{EOQ}{2} \times H \right)''')
-🧠 Penjelasan Visualisasi
-Sumbu X: Jumlah pemesanan per pesanan (Q)
 
-Sumbu Y: Total biaya persediaan (Rp)
-
-Garis merah vertikal: Titik EOQ — di mana total biaya persediaan minimum
