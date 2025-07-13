@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+from scipy.optimize import linprog
 import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="EOQ Calculator", page_icon="📦")
