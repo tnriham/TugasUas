@@ -1,2 +1,5 @@
 streamlit
+sympy
 numpy
+matplotlib
+scipy
