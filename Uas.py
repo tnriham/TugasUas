@@ -61,7 +61,3 @@ with st.expander("ℹ️ Penjelasan Rumus EOQ"):
     **Total Biaya Persediaan:**
     """)
     st.latex(r'''TC = \left( \frac{D}{EOQ} \times S \right) + \left( \frac{EOQ}{2} \times H \right)''')
-
-# Footer
-st.markdown("---")
-st.caption("Aplikasi EOQ | Dibuat dengan ❤️ oleh ChatGPT x Streamlit")
