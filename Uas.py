@@ -6,7 +6,7 @@ st.set_page_config(page_title="EOQ Calculator", page_icon="📦")
 st.title("📦 Aplikasi Perhitungan EOQ (Economic Order Quantity)")
 st.markdown("Simulasi sistem persediaan barang untuk menentukan jumlah pemesanan optimal (EOQ).")
 
-tab1, tab2 = st.tabs(["🔢 Input Manual", "📘 Studi Kasus SmartTech"])
+tab1, tab2 = st.tabs(["🔢 Input Manual", "📘 Studi Kasus Budi Jaya"])
 
 # Tab 1 – Input Manual
 with tab1:
@@ -28,9 +28,9 @@ with tab1:
 
 # Tab 2 – Studi Kasus
 with tab2:
-    st.header("📘 Studi Kasus: Toko Elektronik SmartTech")
+    st.header("📘 Studi Kasus: Toko Elektronik Budi Jaya")
     st.write("""
-    Toko SmartTech menjual lampu pintar. Berikut data tahunannya:
+    Toko Budi Jaya menjual lampu pintar. Berikut data tahunannya:
     - Permintaan tahunan (D): 2.400 unit
     - Biaya pemesanan per pesanan (S): Rp 100.000
     - Biaya penyimpanan per unit per tahun (H): Rp 2.000
