@@ -16,7 +16,6 @@ with tab1:
     D = st.number_input("Permintaan Tahunan (unit)", min_value=1, value=5000)
     S = st.number_input("Biaya Pemesanan per Pesanan (Rp)", min_value=1.0, value=75000.0)
     H = st.number_input("Biaya Penyimpanan per Unit per Tahun (Rp)", min_value=1.0, value=1500.0)
-    P = st.number_input("Harga Jual per Unit (Rp)", min_value=1.0, value=100000.0)
 
     if D > 0 and S > 0 and H > 0:
         EOQ = np.sqrt((2 * D * S) / H)
