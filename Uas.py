@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-from scipy.optimize import linprog
 import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="EOQ Calculator", page_icon="📦")
@@ -18,30 +17,33 @@ with tab1:
     S = st.number_input("Biaya Pemesanan per Pesanan (Rp)", min_value=1.0, value=75000.0)
     H = st.number_input("Biaya Penyimpanan per Unit per Tahun (Rp)", min_value=1.0, value=1500.0)
 
-    EOQ = np.sqrt((2 * D * S) / H)
-    num_orders = D / EOQ
-    total_cost = (D / EOQ) * S + (EOQ / 2) * H
+    if D > 0 and S > 0 and H > 0:
+        EOQ = np.sqrt((2 * D * S) / H)
+        num_orders = D / EOQ
+        total_cost = (D / EOQ) * S + (EOQ / 2) * H
 
-    st.subheader("📈 Hasil Perhitungan")
-    col1, col2, col3 = st.columns(3)
-    col1.metric("EOQ (unit)", f"{EOQ:.2f}")
-    col2.metric("Jumlah Pesanan per Tahun", f"{num_orders:.2f}")
-    col3.metric("Total Biaya Persediaan", f"Rp {total_cost:,.2f}")
+        st.subheader("📈 Hasil Perhitungan")
+        col1, col2, col3 = st.columns(3)
+        col1.metric("EOQ (unit)", f"{EOQ:.2f}")
+        col2.metric("Jumlah Pesanan per Tahun", f"{num_orders:.2f}")
+        col3.metric("Total Biaya Persediaan", f"Rp {total_cost:,.2f}")
 
-    # Grafik
-    st.subheader("📉 Grafik Total Biaya vs Kuantitas Pemesanan")
-    Q_range = np.linspace(1, EOQ * 2, 100)
-    total_costs = (D / Q_range) * S + (Q_range / 2) * H
+        # Grafik
+        st.subheader("📉 Grafik Total Biaya vs Kuantitas Pemesanan")
+        Q_range = np.linspace(1, EOQ * 2, 100)
+        total_costs = (D / Q_range) * S + (Q_range / 2) * H
 
-    fig, ax = plt.subplots()
-    ax.plot(Q_range, total_costs, label='Total Cost', color='blue')
-    ax.axvline(EOQ, color='red', linestyle='--', label=f'EOQ = {EOQ:.2f}')
-    ax.set_xlabel('Jumlah Pemesanan (Q)')
-    ax.set_ylabel('Total Biaya (Rp)')
-    ax.set_title('Grafik Total Biaya vs Jumlah Pemesanan')
-    ax.legend()
-    ax.grid(True)
-    st.pyplot(fig)
+        fig, ax = plt.subplots()
+        ax.plot(Q_range, total_costs, label='Total Cost', color='blue')
+        ax.axvline(EOQ, color='red', linestyle='--', label=f'EOQ = {EOQ:.2f}')
+        ax.set_xlabel('Jumlah Pemesanan (Q)')
+        ax.set_ylabel('Total Biaya (Rp)')
+        ax.set_title('Grafik Total Biaya vs Jumlah Pemesanan')
+        ax.legend()
+        ax.grid(True)
+        st.pyplot(fig)
+    else:
+        st.error("Semua input harus lebih besar dari nol!")
 
 # Tab 2 – Studi Kasus
 with tab2:
@@ -85,11 +87,10 @@ with tab2:
 with st.expander("ℹ️ Penjelasan Rumus EOQ"):
     st.latex(r'''EOQ = \sqrt{\frac{2DS}{H}}''')
     st.markdown("""
-    - **D** = Permintaan tahunan (unit)
-    - **S** = Biaya pemesanan per pesanan
-    - **H** = Biaya penyimpanan per unit per tahun
+    - **D** = Permintaan tahunan (unit)  
+    - **S** = Biaya pemesanan per pesanan  
+    - **H** = Biaya penyimpanan per unit per tahun  
     
-    **Total Biaya Persediaan:**
+    **Total Biaya Persediaan (TC):**
     """)
     st.latex(r'''TC = \left( \frac{D}{EOQ} \times S \right) + \left( \frac{EOQ}{2} \times H \right)''')
-
